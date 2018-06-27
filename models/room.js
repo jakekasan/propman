@@ -2,15 +2,16 @@
 const mongoose = require("mongoose");
 
 // local imports
+const Item = require("./item.js");
 const Segment = require("./segment.js");
 
 const Schema = mongoose.Schema;
 
-const buildingSchema = new Schema({
+var roomSchema = Schema({
     id: Schema.Types.ObjectId,
-    loc: String,
-    segments: [Segment],
-    desc: String
+    segment: Segment,
+    name: String,
+    inventory: [Item]
 });
 
-module.exports = buildingSchema;
+module.exports = roomSchema;
