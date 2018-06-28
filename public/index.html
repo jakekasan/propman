@@ -8,29 +8,49 @@
     <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
-    <div>
-        <button class="dropbtn">Dropdown</button>
+    <div class="dropdown">
+        <button class="dropbtn">Select a class...</button>
         <div class="dropdown-content">
         </div>
     </div>
+    <div class="mainPage">
+        <!-- nothing until it is set -->
+    </div>
 </body>
 <script>
-    userTypes = ["manager","co-ordinator","customer"];
-    var dropdownContentContainer = document.getElementsByClassName("dropdown-content")[0];
-    console.log(dropdownContentContainer);
-    for (let userType of userTypes){
+    function pageSetup (userTypes) {
+        var dropdownContentContainer = document.getElementsByClassName("dropdown-content")[0];
+        console.log(dropdownContentContainer);
+        for (let userType of userTypes){
             let dropdownMemberNode = document.createElement("a");
             let dropdownText = document.createTextNode(userType);
             dropdownMemberNode.appendChild(dropdownText);
+            dropdownMemberNode.addEventListener("click",(event) => {
+                selected = event.target.innerHTML;
+                console.log(event);
+                let target = document.getElementsByClassName("dropbtn")[0];
+                target.innerText = selected;
+                setMainPage();
+            });
             dropdownContentContainer.appendChild(dropdownMemberNode);
+        }
     }
-    // fetch("http://192.168.2.100/data/userType").then(data => data.json()).then(data => {
-    //     for (let userType in data){
-    //         let dropdownMemberNode = document.createElement("div");
-    //         dropdownMemberNode.appendChild(userType);
-    //         dropdownContentContainer.appendChild(dropdownMemberNode);
-    //     }
-    // });
 
+    function setMainPage(){
+        let page = document.getElementsByClassName("mainPage")[0];
+        let mainText = document.createTextNode("Main page for " + selected + "!");
+        page.innerHTML = "";
+        page.appendChild(mainText);
+    }
+
+    var selected = "None";
+    fetch("http://localhost:8080/usertypes")
+        .then(data => data.json())
+        .then(data => {
+            console.log(data);
+            pageSetup(data);
+        })
+        .catch(e => console.log(e));
+    
 </script>
 </html>

@@ -8,7 +8,12 @@ let routes = function (app){
     
     app.get("/index.css",(req,res) => {
         res.sendFile("index.css");
-    })
+    });
+
+    app.get("/usertypes",(req,res) => {
+        console.log("[GET] usertypes");
+        res.send(JSON.stringify(["Customer","Manager","Co-ordinator"]))
+    });
     
     app.get("/ticket",(req,res) => {
         res.send("ticket page");
