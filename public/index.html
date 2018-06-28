@@ -5,8 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Title page</title>
+    <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
-    
+    <div>
+        <button class="dropbtn">Dropdown</button>
+        <div class="dropdown-content">
+        </div>
+    </div>
 </body>
+<script>
+    userTypes = ["manager","co-ordinator","customer"];
+    var dropdownContentContainer = document.getElementsByClassName("dropdown-content")[0];
+    console.log(dropdownContentContainer);
+    for (let userType of userTypes){
+            let dropdownMemberNode = document.createElement("a");
+            let dropdownText = document.createTextNode(userType);
+            dropdownMemberNode.appendChild(dropdownText);
+            dropdownContentContainer.appendChild(dropdownMemberNode);
+    }
+    // fetch("http://192.168.2.100/data/userType").then(data => data.json()).then(data => {
+    //     for (let userType in data){
+    //         let dropdownMemberNode = document.createElement("div");
+    //         dropdownMemberNode.appendChild(userType);
+    //         dropdownContentContainer.appendChild(dropdownMemberNode);
+    //     }
+    // });
+
+</script>
 </html>
