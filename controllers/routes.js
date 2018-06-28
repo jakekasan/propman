@@ -29,5 +29,30 @@ let routes = function (app){
     });    
 }
 
+const db = [];
+db.append({
+    type:"User",
+    userType:"Manager",
+    name:"Homer Simpson"
+});
+
+db.append({
+    type:"User",
+    userType:"Co-ordinator",
+    name:"Bart Simpson"
+});
+
+db.append({
+    type:"User",
+    userType:"Customer",
+    name:"Ned Flanders"
+});
+
+db.append({
+    type:"Building",
+    address:"Praha 5",
+    segments: []
+});
+
 
 module.exports = routes;
