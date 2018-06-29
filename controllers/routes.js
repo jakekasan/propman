@@ -146,7 +146,7 @@ let routes = function (app){
     });
     
     app.get("/data",(req,res) => {
-        res.send(JSON.stringify(db));
+        res.send(JSON.stringify(db,null,2));
     });    
 }
 

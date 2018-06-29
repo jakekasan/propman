@@ -8,13 +8,18 @@
     <link rel="stylesheet" type="text/css" href="./index.css">
 </head>
 <body>
-    <div class="dropdown">
-        <button class="dropbtn">Select a class...</button>
-        <div class="dropdown-content">
+    <div class="container">
+        <div class="toolBar"></div>
+        <div class="pageContent">
+            <div class="dropdown">
+                <button class="dropbtn">Select a class...</button>
+                <div class="dropdown-content">
+                </div>
+            </div>
+            <div class="mainPage">
+                <!-- nothing until it is set -->
+            </div>
         </div>
-    </div>
-    <div class="mainPage">
-        <!-- nothing until it is set -->
     </div>
 </body>
 <script>
@@ -26,21 +31,29 @@
             let dropdownText = document.createTextNode(userType);
             dropdownMemberNode.appendChild(dropdownText);
             dropdownMemberNode.addEventListener("click",(event) => {
-                selected = event.target.innerHTML;
+                let selected = event.target.innerHTML;
                 console.log(event);
                 let target = document.getElementsByClassName("dropbtn")[0];
                 target.innerText = selected;
-                setMainPage();
+                setMainPage(selected);
             });
             dropdownContentContainer.appendChild(dropdownMemberNode);
         }
     }
 
-    function setMainPage(){
-        let page = document.getElementsByClassName("mainPage")[0];
-        let mainText = document.createTextNode("Main page for " + selected + "!");
-        page.innerHTML = "";
-        page.appendChild(mainText);
+    function setMainPage(selected){
+        if (selected == undefined) { return };
+        // get data for selected
+        fetch("http://localhost:8080/data")
+            .then(data => data.json())
+            .then(data => {
+                let page = document.getElementsByClassName("mainPage")[0];
+                let mainText = document.createTextNode("Main page for " + selected + "!");
+                let mainData = document.createTextNode(JSON.stringify(data));
+                page.innerHTML = "";
+                page.appendChild(mainText);
+                page.appendChild(mainData);
+            });
     }
 
     var selected = "None";
