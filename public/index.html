@@ -15,16 +15,20 @@
                 <div class="dropdown-content">
                 </div>
             </div>
+            <a href="#button1">Button 1</a>
+            <a href="#button2">Button 2</a>
+            <a href="#button3">Button 3</a>
+<!--             
             <div class="dropdown">
                 <button class="bropbtn">First button</button>
                 <div class="dropdown-content">
-                    <!-- Button to select what to view -->
+                    
                 </div>
             </div>
             <div class="dropdown">
                 <button class="bropbtn">Second button</button>
                 <div class="dropdown-content">
-                    <!-- Button to select action -->
+                    
                 </div>
             </div>
             <div class="dropdown">
@@ -32,10 +36,9 @@
                 <div class="dropdown-content">
                     
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="pageContent">
-            
             <div class="mainPage">
                 <!-- nothing until it is set -->
             </div>
@@ -43,7 +46,7 @@
     </div>
 </body>
 <script>
-    function pageSetup (userTypes) {
+    function pageSetup(userTypes) {
         var dropdownContentContainer = document.getElementsByClassName("dropdown-content")[0];
         console.log(dropdownContentContainer);
         for (let userType of userTypes){
@@ -76,7 +79,7 @@
             });
     }
 
-    var selected = "None";
+    //var selected = "None";
     fetch("http://localhost:8080/usertypes")
         .then(data => data.json())
         .then(data => {
