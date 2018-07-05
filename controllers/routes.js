@@ -131,22 +131,29 @@ let routes = function (app){
         res.sendFile("index.css");
     });
 
-    app.get("/usertypes",(req,res) => {
-        console.log("[GET] usertypes");
-        res.send(JSON.stringify(["Customer","Manager","Co-ordinator"]))
+    app.get("/datatypes",(req,res) => {
+        console.log("[GET] datatypes");
+        let unique = db.map(el => { el.type }).reduce((acc,cur) => { if (!acc.includes(cur)) { acc.push(cur) } return acc },[])
+        console.log(unique);
+        res.send(JSON.stringify(unique));
     });
     
     app.get("/ticket",(req,res) => {
         res.send("ticket page");
     });
     
-    app.get("/test",(res,req) => {
+    app.get("/test",(req,res) => {
         // this will generate a bunch of test data for demo purposes
         res.send("Ok!");
     });
     
-    app.get("/data",(req,res) => {
-        res.send(JSON.stringify(db,null,2));
+    app.get("/data/:type",(req,res) => {
+        let query = req.params.type;
+        console.log(query);
+        console.log(db);
+        let result = db.reduce((acc,val) => { if(val["type"] == query) { acc.push(val) } return acc },[]);
+        console.log(result)
+        res.send(JSON.stringify(result));
     });    
 }
 

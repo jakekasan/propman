@@ -39,7 +39,7 @@
             </div> -->
         </div>
         <div class="pageContent">
-            <div class="mainPage">
+            <div class="infoContainer">
                 <!-- nothing until it is set -->
             </div>
         </div>
@@ -67,20 +67,34 @@
     function setMainPage(selected){
         if (selected == undefined) { return };
         // get data for selected
-        fetch("http://localhost:8080/data")
+        fetch("http://localhost:8080/data/${selected}")
             .then(data => data.json())
             .then(data => {
-                let page = document.getElementsByClassName("mainPage")[0];
-                let mainText = document.createTextNode("Main page for " + selected + "!");
-                let mainData = document.createTextNode(JSON.stringify(data));
+                console.log(data[0].name);
+                var page = document.getElementsByClassName("infoContainer")[0];
+                let mainText = document.createTextNode("Main page for " + selected + "!\n\n");
+                //let mainData = document.createTextNode(JSON.stringify(data));
                 page.innerHTML = "";
                 page.appendChild(mainText);
-                page.appendChild(mainData);
+                for (let obj of data) {
+                    let newCard = document.createElement("div");
+                    newCard.className = "card";
+                    let cardContainer = document.createElement("div");
+                    cardContainer.className = "cardContainer";
+                    cardName = document.createElement("h4");
+                    cardName.appendChild(document.createTextNode(obj.name));
+                    cardDesc = document.createElement("p");
+                    cardDesc.appendChild(document.createTextNode(obj.userType));
+                    cardContainer.appendChild(cardName);
+                    cardContainer.appendChild(cardDesc);
+                    newCard.appendChild(cardContainer);
+                    page.appendChild(newCard);
+                }
             });
     }
 
     //var selected = "None";
-    fetch("http://localhost:8080/usertypes")
+    fetch("http://localhost:8080/datatypes")
         .then(data => data.json())
         .then(data => {
             console.log(data);
