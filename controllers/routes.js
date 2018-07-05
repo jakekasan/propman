@@ -131,6 +131,10 @@ let routes = function (app){
         res.sendFile("index.css");
     });
 
+    app.get("/homer.png",(req,res) => {
+        res.sendFile("homer.png");
+    })
+
     app.get("/datatypes",(req,res) => {
         console.log("[GET] datatypes");
         let mapped = db.map(el => { return el.type });

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Title page</title>
     <link rel="stylesheet" type="text/css" href="./index.css">
+    <script src="./index.js"></script>
 </head>
 <body>
     <div class="container">
@@ -18,25 +19,7 @@
             <a href="#button1">Button 1</a>
             <a href="#button2">Button 2</a>
             <a href="#button3">Button 3</a>
-<!--             
-            <div class="dropdown">
-                <button class="bropbtn">First button</button>
-                <div class="dropdown-content">
-                    
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="bropbtn">Second button</button>
-                <div class="dropdown-content">
-                    
-                </div>
-            </div>
-            <div class="dropdown">
-                <button class="bropbtn">Third button</button>
-                <div class="dropdown-content">
-                    
-                </div>
-            </div> -->
+
         </div>
         <div class="pageContent">
             <div class="infoContainer">
@@ -45,71 +28,4 @@
         </div>
     </div>
 </body>
-<script>
-    function pageSetup(userTypes) {
-        var dropdownContentContainer = document.getElementsByClassName("dropdown-content")[0];
-        console.log(dropdownContentContainer);
-        for (let userType of userTypes){
-            let dropdownMemberNode = document.createElement("a");
-            let dropdownText = document.createTextNode(userType);
-            dropdownMemberNode.appendChild(dropdownText);
-            dropdownMemberNode.addEventListener("click",(event) => {
-                let selected = event.target.innerHTML;
-                console.log(event);
-                let target = document.getElementsByClassName("dropbtn")[0];
-                target.innerText = selected;
-                setMainPage(selected);
-            });
-            dropdownContentContainer.appendChild(dropdownMemberNode);
-        }
-    }
-
-    function setMainPage(selected){
-        if (selected == undefined) { return };
-        // get data for selected
-        console.log(`${selected}`);
-        fetch("http://localhost:8080/data/"+selected)
-            .then(data => data.json())
-            .then(data => {
-                if (data.length < 1) return;
-                console.log(data[0].name);
-                var page = document.getElementsByClassName("infoContainer")[0];
-                let mainText = document.createTextNode("Main page for " + selected + "!\n\n");
-                //let mainData = document.createTextNode(JSON.stringify(data));
-                page.innerHTML = "";
-                page.appendChild(mainText);
-                for (let obj of data) {
-                    let newCard = document.createElement("div");
-                    newCard.className = "card";
-                    let cardContainer = document.createElement("div");
-                    cardContainer.className = "cardContainer";
-                    cardName = document.createElement("h4");
-                    cardName.appendChild(document.createTextNode(obj.type));
-                    cardDesc = document.createElement("ul");
-                    for (let prop in obj){
-                        if (prop != "type" & obj.hasOwnProperty(prop)) {
-                            let li = document.createElement("li");
-                            li.appendChild(document.createTextNode(prop + ": " + obj[prop]));
-                            cardDesc.appendChild(li);
-                        }
-                    }
-                    
-                    cardContainer.appendChild(cardName);
-                    cardContainer.appendChild(cardDesc);
-                    newCard.appendChild(cardContainer);
-                    page.appendChild(newCard);
-                }
-            });
-    }
-
-    //var selected = "None";
-    fetch("http://localhost:8080/datatypes")
-        .then(data => data.json())
-        .then(data => {
-            console.log(data);
-            pageSetup(data);
-        })
-        .catch(e => console.log(e));
-    
-</script>
 </html>
