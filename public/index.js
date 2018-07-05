@@ -21,9 +21,7 @@ function pageSetup(userTypes) {
 
 setMainPage
 
-@param
-
-
+This function loads the data from the database and builds the relevant cards for the general view
 
 
 */
@@ -67,13 +65,32 @@ function setMainPage(selected){
                 cardContainer.appendChild(cardName);
                 cardContainer.appendChild(cardDesc);
                 newCard.appendChild(cardContainer);
-                newCard.addEventListener("click",(event)=>{
+                newCard.addEventListener("click",(event) => {
                     console.log("Mouse clicked!");
                     console.log(obj);
+                    setContextPage(obj,selected);
                 });
                 page.appendChild(newCard);
             }
         });
+}
+
+function setContextPage(selectedObject,previousSelection){
+    var page = document.getElementsByClassName("infoContainer")[0];
+    page.innerHTML = "";
+    
+    
+    // lastly, add a button to return to previous search with
+    
+    let reverseButton = document.createElement("button");
+    reverseButton.innerText = "Revert state";
+    reverseButton.addEventListener("click",() => {
+        setMainPage(previousSelection);
+        console.log("Reverting state");
+    });
+    
+    page.appendChild(reverseButton);
+
 }
 
 //var selected = "None";
