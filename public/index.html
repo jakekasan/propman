@@ -11,7 +11,7 @@
     <div class="container">
         <div class="toolBar">
             <div class="dropdown">
-                <button class="dropbtn">Select a class...</button>
+                <button class="dropbtn">Select a type...</button>
                 <div class="dropdown-content">
                 </div>
             </div>
@@ -67,9 +67,11 @@
     function setMainPage(selected){
         if (selected == undefined) { return };
         // get data for selected
-        fetch("http://localhost:8080/data/${selected}")
+        console.log(`${selected}`);
+        fetch("http://localhost:8080/data/"+selected)
             .then(data => data.json())
             .then(data => {
+                if (data.length < 1) return;
                 console.log(data[0].name);
                 var page = document.getElementsByClassName("infoContainer")[0];
                 let mainText = document.createTextNode("Main page for " + selected + "!\n\n");
@@ -82,9 +84,16 @@
                     let cardContainer = document.createElement("div");
                     cardContainer.className = "cardContainer";
                     cardName = document.createElement("h4");
-                    cardName.appendChild(document.createTextNode(obj.name));
-                    cardDesc = document.createElement("p");
-                    cardDesc.appendChild(document.createTextNode(obj.userType));
+                    cardName.appendChild(document.createTextNode(obj.type));
+                    cardDesc = document.createElement("ul");
+                    for (let prop in obj){
+                        if (prop != "type" & obj.hasOwnProperty(prop)) {
+                            let li = document.createElement("li");
+                            li.appendChild(document.createTextNode(prop + ": " + obj[prop]));
+                            cardDesc.appendChild(li);
+                        }
+                    }
+                    
                     cardContainer.appendChild(cardName);
                     cardContainer.appendChild(cardDesc);
                     newCard.appendChild(cardContainer);

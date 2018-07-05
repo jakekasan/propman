@@ -133,7 +133,9 @@ let routes = function (app){
 
     app.get("/datatypes",(req,res) => {
         console.log("[GET] datatypes");
-        let unique = db.map(el => { el.type }).reduce((acc,cur) => { if (!acc.includes(cur)) { acc.push(cur) } return acc },[])
+        let mapped = db.map(el => { return el.type });
+        console.log(mapped);
+        let unique = mapped.reduce((acc,cur) => { if (!acc.includes(cur)) { acc.push(cur) } return acc },[])
         console.log(unique);
         res.send(JSON.stringify(unique));
     });
