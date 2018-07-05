@@ -1,5 +1,20 @@
+
+
+body {
+    height: 100%;
+}
+
+.container {
+    background-color: yellow;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 10% 90%;
+}
+
 .dropbtn {
     background-color: #4CAF50;
+    width: 100%;
     color: white;
     padding: 16px;
     font-size: 16px;
@@ -9,13 +24,14 @@
 .dropdown {
     position: relative;
     display: inline-block;
+    background-color: purple;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f1f1f1;
-    min-width: 160px;
+    width:100%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
 }
@@ -37,4 +53,10 @@
 
 .dropdown:hover .dropbtn {
     background-color: #3e8341;
+}
+
+.toolBar {
+    background-color: grey;
+    display: grid;
+    grid-auto-rows: minmax(50px,200px);
 }
